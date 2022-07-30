@@ -1,3 +1,6 @@
 # Tokyonight-fade.nvim
 
+[![Lua](https://img.shields.io/badge/Lua-blue.svg?style=for-the-badge&logo=lua)](http://www.lua.org)
+[![Neovim](https://img.shields.io/badge/Neovim%200.8+-green.svg?style=for-the-badge&logo=neovim)](https://neovim.io)
+
 Fade inactive buffers when you use Tokyonight storm theme
