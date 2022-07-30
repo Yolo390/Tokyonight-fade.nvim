@@ -39,9 +39,9 @@ M.setup = function (opts)
 			-- print('Path: ' .. current_buf_path)
 			-- print('Name: ' .. current_buf_name)
 
-			vim.opt.colorcolumn = options.cc == '80' and '80' or '0'
+			vim.opt.colorcolumn = options.cc == true and '80' or '0'
 			vim.opt.cursorline = options.cl == true and true or false
-			vim.opt.signcolumn = options.sc == 'yes' and 'yes' or 'no'
+			vim.opt.signcolumn = options.sc == true and 'yes' or 'no'
 		end
 	})
 
@@ -51,9 +51,9 @@ M.setup = function (opts)
 			-- Get current buffer name
 			local current_buf_name = vim.fn.expand('%:t')
 
-			vim.opt.colorcolumn = options.cc
-			vim.opt.cursorline = options.cl
-			vim.opt.signcolumn = options.sc
+			vim.opt.colorcolumn = options.cc == true and '0' or '80'
+			vim.opt.cursorline = false
+			vim.opt.signcolumn = options.sc == true and 'no' or 'yes'
 
 			-- Change color of NvimTree Non Current background
 			if (options.nvimtree and current_buf_name == 'NvimTree_1') then
