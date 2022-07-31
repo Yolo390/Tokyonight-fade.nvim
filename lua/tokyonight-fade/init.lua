@@ -33,11 +33,12 @@ M.setup = function (opts)
 	vim.api.nvim_create_autocmd({ 'WinEnter' }, {
 		group = group,
 		callback = function ()
-			-- DEBUG: get current buffer path and current buffer name
-			-- local current_buf_path = vim.api.nvim_buf_get_name(0)
-			-- local current_buf_name = vim.fn.expand('%:t')
-			-- print('Path: ' .. current_buf_path)
-			-- print('Name: ' .. current_buf_name)
+			-- Get current windows type to detect Telescope popup
+			-- and change CursorLine color
+			local win_type = vim.fn.win_gettype(0)
+			if (win_type == 'popup') then
+				vim.cmd [[ highlight CursorLine guibg=#24283b ]]
+			end
 
 			vim.opt.colorcolumn = options.cc == true and '80' or '0'
 			vim.opt.cursorline = options.cl == true and true or false
@@ -48,6 +49,13 @@ M.setup = function (opts)
 	vim.api.nvim_create_autocmd({ 'WinLeave' }, {
 		group = group,
 		callback = function ()
+			-- Get current windows type to detect Telescope popup
+			-- and change CursorLine color
+			local win_type = vim.fn.win_gettype(0)
+			if (win_type == 'popup') then
+				vim.cmd [[ highlight CursorLine guibg=#2C3043 ]]
+			end
+
 			-- Get current buffer name
 			local current_buf_name = vim.fn.expand('%:t')
 
