@@ -7,6 +7,7 @@ local M = {}
 M.setup = function (opts)
 	local options = opts or {}
 
+	-- ADD COMMENT
 	-- Detect user theme.
 	local theme = vim.g.colors_name
 	local tokyonight_version = vim.g.tokyonight_style
