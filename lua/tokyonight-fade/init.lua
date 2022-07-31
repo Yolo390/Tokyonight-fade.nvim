@@ -2,6 +2,8 @@
 
 local M = {}
 
+-- TODO: gitsigns 'gg' and 'gh'
+
 M.setup = function (opts)
 	local options = opts or {}
 
@@ -27,9 +29,10 @@ M.setup = function (opts)
 	vim.cmd [[ highlight TabLine guibg=#2C3043 guifg=#CCCCCC ]] -- non active Tab
 	vim.cmd [[ highlight TabLineFill guibG=#24283b ]] -- no labels Tab
 
+	vim.api.nvim_set_hl(0, 'NvimTreeNormal', { bg = '#1f2335' })
+
 	-- Autocmd to change specific 'items'
 	local basic_fade = vim.api.nvim_create_augroup('basic_fade', { clear = true })
-	-- local dashboard_fade = vim.api.nvim_create_augroup('dashboard_fade', { clear = true })
 
 	vim.api.nvim_create_autocmd({ 'FileType', 'WinEnter' }, {
 		group = basic_fade,
@@ -49,6 +52,8 @@ M.setup = function (opts)
 				vim.opt.colorcolumn = '0'
 				vim.opt.signcolumn = 'no'
 				vim.opt.cursorline = false
+
+				vim.api.nvim_set_hl(0, 'Normal', { bg = '#24283b' })
 			elseif (filetype ~= 'dashboard') then
 				-- Set options
 				vim.opt.colorcolumn = options.cc == true and '80' or '0'
@@ -80,6 +85,12 @@ M.setup = function (opts)
 
 			if (options.nvimtree == true and current_buf_name == 'NvimTree_1') then
 				vim.api.nvim_set_hl(0, 'NvimTreeNormalNC', { bg = '#2C3043' })
+				vim.api.nvim_set_hl(0, 'NvimTreeNormal', { bg = '#1f2335' })
+			end
+
+			-- Deal with Dashboard plugin
+			if (filetype == 'dashboard') then
+				vim.api.nvim_set_hl(0, 'Normal', { bg = '#2C3043' })
 			end
 		end
 	})
