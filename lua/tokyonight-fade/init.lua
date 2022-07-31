@@ -36,14 +36,14 @@ M.setup = function (opts)
 		callback = function ()
 			-- Change CursorLine and ColorColumn of Telescope popup prompt
 			local win_type = vim.fn.win_gettype(0)
+			local filetype = vim.bo.filetype
 
-			if (win_type == 'popup') then
+			if (win_type == 'popup' and filetype == 'TelescopePrompt') then
 				vim.cmd [[ highlight CursorLine guibg=#24283b ]]
 				vim.cmd [[ highlight ColorColumn guibg=#24283b ]]
 			end
 
 			-- Deal with Dashboard plugin
-			local filetype = vim.bo.filetype
 			if (filetype == 'dashboard') then
 				-- Set options
 				vim.opt.colorcolumn = '0'
