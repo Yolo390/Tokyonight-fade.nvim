@@ -28,43 +28,57 @@ M.setup = function (opts)
 	vim.cmd [[ highlight TabLineFill guibG=#24283b ]] -- no labels Tab
 
 	-- Autocmd to change specific 'items'
-	local group = vim.api.nvim_create_augroup('change_color', { clear = true })
+	local basic_fade = vim.api.nvim_create_augroup('basic_fade', { clear = true })
+	-- local dashboard_fade = vim.api.nvim_create_augroup('dashboard_fade', { clear = true })
 
-	vim.api.nvim_create_autocmd({ 'WinEnter' }, {
-		group = group,
+	vim.api.nvim_create_autocmd({ 'FileType', 'WinEnter' }, {
+		group = basic_fade,
 		callback = function ()
-			-- Get current windows type to detect Telescope popup
-			-- and change CursorLine color
+			-- Change CursorLine and ColorColumn of Telescope popup prompt
 			local win_type = vim.fn.win_gettype(0)
+
 			if (win_type == 'popup') then
 				vim.cmd [[ highlight CursorLine guibg=#24283b ]]
+				vim.cmd [[ highlight ColorColumn guibg=#24283b ]]
 			end
 
-			vim.opt.colorcolumn = options.cc == true and '80' or '0'
-			vim.opt.cursorline = options.cl == true and true or false
-			vim.opt.signcolumn = options.sc == true and 'yes' or 'no'
+			-- Deal with Dashboard plugin
+			local filetype = vim.bo.filetype
+			if (filetype == 'dashboard') then
+				-- Set options
+				vim.opt.colorcolumn = '0'
+				vim.opt.signcolumn = 'no'
+				vim.opt.cursorline = false
+			elseif (filetype ~= 'dashboard') then
+				-- Set options
+				vim.opt.colorcolumn = options.cc == true and '80' or '0'
+				vim.opt.signcolumn = options.sc == true and 'yes' or 'no'
+				vim.opt.cursorline = true
+			end
 		end
 	})
 
 	vim.api.nvim_create_autocmd({ 'WinLeave' }, {
-		group = group,
+		group = basic_fade,
 		callback = function ()
-			-- Get current windows type to detect Telescope popup
-			-- and change CursorLine color
+			-- Reset CursorLine and ColorColumn when leave Telescope popup prompt
 			local win_type = vim.fn.win_gettype(0)
-			if (win_type == 'popup') then
+			local filetype = vim.bo.filetype
+
+			if (win_type == 'popup' and filetype == 'TelescopePrompt') then
 				vim.cmd [[ highlight CursorLine guibg=#2C3043 ]]
+				vim.cmd [[ highlight ColorColumn guibg=#1f2335 ]]
 			end
 
-			-- Get current buffer name
-			local current_buf_name = vim.fn.expand('%:t')
-
-			vim.opt.colorcolumn = options.cc == true and '0' or '80'
+			-- Set options
+			vim.opt.colorcolumn = '0'
 			vim.opt.cursorline = false
-			vim.opt.signcolumn = options.sc == true and 'no' or 'yes'
+			vim.opt.signcolumn = 'no'
 
 			-- Change color of NvimTree Non Current background
-			if (options.nvimtree and current_buf_name == 'NvimTree_1') then
+			local current_buf_name = vim.fn.expand('%:t')
+
+			if (options.nvimtree == true and current_buf_name == 'NvimTree_1') then
 				vim.api.nvim_set_hl(0, 'NvimTreeNormalNC', { bg = '#2C3043' })
 			end
 		end
