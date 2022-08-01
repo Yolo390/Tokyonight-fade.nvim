@@ -2,6 +2,7 @@
 
 local M = {}
 
+-- TODO: move Set highlight-groups to autocmd
 -- TODO: gitsigns 'gg' and 'gh'
 
 M.setup = function (opts)
