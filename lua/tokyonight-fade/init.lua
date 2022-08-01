@@ -35,9 +35,13 @@ M.setup = function (opts)
 			vim.cmd [[ highlight TabLine guibg=#2C3043 guifg=#CCCCCC ]] -- non active Tab
 			vim.cmd [[ highlight TabLineFill guibG=#24283b ]] -- no labels Tab
 
-			vim.api.nvim_set_hl(0, 'NvimTreeNormalNC', { bg = '#2C3043' })
+			-- Deal with NvimTree
+			local current_buf_name = vim.fn.expand('%:t')
+			if (current_buf_name ~= 'NvimTree_1') then
+				vim.api.nvim_set_hl(0, 'NvimTreeNormalNC', { bg = '#2C3043' })
+			end
 
-			-- Change CursorLine and ColorColumn of Telescope popup
+			-- Deal with Telescope popup
 			local win_type = vim.fn.win_gettype(0)
 			local filetype = vim.bo.filetype
 
