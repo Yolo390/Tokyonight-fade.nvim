@@ -2,6 +2,7 @@
 
 -- TODO: fix gitsigns 'gg' and 'gh'
 -- TODO: fix packer cursorline 
+-- TODO: fix glow plugin
 
 local M = {}
 
@@ -33,6 +34,8 @@ M.setup = function (opts)
 			vim.cmd [[ highlight TabLineSel guibg=#3d59a1 guifg=#FFFFFF ]] -- active Tab
 			vim.cmd [[ highlight TabLine guibg=#2C3043 guifg=#CCCCCC ]] -- non active Tab
 			vim.cmd [[ highlight TabLineFill guibG=#24283b ]] -- no labels Tab
+
+			vim.api.nvim_set_hl(0, 'NvimTreeNormalNC', { bg = '#2C3043' })
 
 			-- Change CursorLine and ColorColumn of Telescope popup
 			local win_type = vim.fn.win_gettype(0)
