@@ -17,5 +17,5 @@ There are many edge cases to handle to make it work properly !
 <br /><br />
 
 <div align="center">
-<img src="https://media.giphy.com/media/U2Agra3p0obxkxWfd7/giphy.gif" width="100%" />
+<img src="https://media.giphy.com/media/U2Agra3p0obxkxWfd7/giphy.gif" width="250px" />
 </div>
