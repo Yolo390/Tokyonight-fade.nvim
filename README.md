@@ -11,6 +11,11 @@
 Fade inactive buffers when you use Tokyonight storm theme
 <br /><br />
 
+Work In Progress
+
+There are many edge cases to handle to make it work properly !
+<br /><br />
+
 <div align="center">
 <img src="https://media.giphy.com/media/U2Agra3p0obxkxWfd7/giphy.gif" width="100%" />
 </div>
