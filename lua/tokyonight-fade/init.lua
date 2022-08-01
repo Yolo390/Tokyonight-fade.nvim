@@ -1,14 +1,13 @@
 -- :lua require'tokyonight-fade'.setup()
 
-local M = {}
+-- TODO: fix gitsigns 'gg' and 'gh'
+-- TODO: fix packer cursorline 
 
--- TODO: move Set highlight-groups to autocmd
--- TODO: gitsigns 'gg' and 'gh'
+local M = {}
 
 M.setup = function (opts)
 	local options = opts or {}
 
-	-- YT COMMENT
 	-- Detect user theme.
 	local theme = vim.g.colors_name
 	local tokyonight_version = vim.g.tokyonight_style
@@ -18,28 +17,24 @@ M.setup = function (opts)
 		error'Theme installed is not Tokyonight storm !'
 	end
 
-	-- Set Hightlight-groups 
-	vim.cmd [[ highlight ActiveWindows guibg=#24283b ]]
-	vim.cmd [[ highlight NonActiveWindows guibg=#2C3043 ]]
-	vim.cmd [[ highlight NonActiveWinbar guibg=#2C3043 ]]
-
-	vim.cmd [[
-		set winhighlight=Normal:ActiveWindows,NormalNC:NonActiveWindows,WinBarNC:NonActiveWinbar
-	]]
-
-	vim.cmd [[ highlight TabLineSel guibg=#3d59a1 guifg=#FFFFFF ]] -- active Tab
-	vim.cmd [[ highlight TabLine guibg=#2C3043 guifg=#CCCCCC ]] -- non active Tab
-	vim.cmd [[ highlight TabLineFill guibG=#24283b ]] -- no labels Tab
-
+	-- NvimTree default background
 	vim.api.nvim_set_hl(0, 'NvimTreeNormal', { bg = '#1f2335' })
 
-	-- Autocmd to change specific 'items'
-	local basic_fade = vim.api.nvim_create_augroup('basic_fade', { clear = true })
+
+	local fade = vim.api.nvim_create_augroup('basic_fade', { clear = true })
 
 	vim.api.nvim_create_autocmd({ 'FileType', 'WinEnter' }, {
-		group = basic_fade,
+		group = fade,
 		callback = function ()
-			-- Change CursorLine and ColorColumn of Telescope popup prompt
+			-- Set Hightlight-groups 
+			vim.cmd [[ highlight NormalNC guibg=#2C3043 ]]
+			vim.cmd [[ highlight WinBarNC guibg=#2C3043 ]]
+
+			vim.cmd [[ highlight TabLineSel guibg=#3d59a1 guifg=#FFFFFF ]] -- active Tab
+			vim.cmd [[ highlight TabLine guibg=#2C3043 guifg=#CCCCCC ]] -- non active Tab
+			vim.cmd [[ highlight TabLineFill guibG=#24283b ]] -- no labels Tab
+
+			-- Change CursorLine and ColorColumn of Telescope popup
 			local win_type = vim.fn.win_gettype(0)
 			local filetype = vim.bo.filetype
 
@@ -66,7 +61,7 @@ M.setup = function (opts)
 	})
 
 	vim.api.nvim_create_autocmd({ 'WinLeave' }, {
-		group = basic_fade,
+		group = fade,
 		callback = function ()
 			-- Reset CursorLine and ColorColumn when leave Telescope popup prompt
 			local win_type = vim.fn.win_gettype(0)
@@ -82,7 +77,7 @@ M.setup = function (opts)
 			vim.opt.cursorline = false
 			vim.opt.signcolumn = 'no'
 
-			-- Change color of NvimTree Non Current background
+			-- Deal with NvimTree plugin
 			local current_buf_name = vim.fn.expand('%:t')
 
 			if (options.nvimtree == true and current_buf_name == 'NvimTree_1') then
