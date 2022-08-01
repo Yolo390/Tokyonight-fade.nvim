@@ -27,14 +27,6 @@ M.setup = function (opts)
 	vim.api.nvim_create_autocmd({ 'FileType', 'WinEnter' }, {
 		group = fade,
 		callback = function ()
-			-- Set Hightlight-groups 
-			vim.cmd [[ highlight NormalNC guibg=#2C3043 ]]
-			vim.cmd [[ highlight WinBarNC guibg=#2C3043 ]]
-
-			vim.cmd [[ highlight TabLineSel guibg=#3d59a1 guifg=#FFFFFF ]] -- active Tab
-			vim.cmd [[ highlight TabLine guibg=#2C3043 guifg=#CCCCCC ]] -- non active Tab
-			vim.cmd [[ highlight TabLineFill guibG=#24283b ]] -- no labels Tab
-
 			-- Deal with NvimTree
 			local current_buf_name = vim.fn.expand('%:t')
 			if (current_buf_name ~= 'NvimTree_1') then
@@ -59,6 +51,14 @@ M.setup = function (opts)
 
 				vim.api.nvim_set_hl(0, 'Normal', { bg = '#24283b' })
 			elseif (filetype ~= 'dashboard') then
+				-- Set Hightlight-groups 
+				vim.cmd [[ highlight NormalNC guibg=#2C3043 ]]
+				vim.cmd [[ highlight WinBarNC guibg=#2C3043 ]]
+
+				vim.cmd [[ highlight TabLineSel guibg=#3d59a1 guifg=#FFFFFF ]] -- active Tab
+				vim.cmd [[ highlight TabLine guibg=#2C3043 guifg=#CCCCCC ]] -- non active Tab
+				vim.cmd [[ highlight TabLineFill guibG=#24283b ]] -- no labels Tab
+
 				-- Set options
 				vim.opt.colorcolumn = options.cc == true and '80' or '0'
 				vim.opt.signcolumn = options.sc == true and 'yes' or 'no'
@@ -70,6 +70,14 @@ M.setup = function (opts)
 	vim.api.nvim_create_autocmd({ 'WinLeave' }, {
 		group = fade,
 		callback = function ()
+			-- Set Hightlight-groups 
+			vim.cmd [[ highlight NormalNC guibg=#2C3043 ]]
+			vim.cmd [[ highlight WinBarNC guibg=#2C3043 ]]
+
+			vim.cmd [[ highlight TabLineSel guibg=#3d59a1 guifg=#FFFFFF ]] -- active Tab
+			vim.cmd [[ highlight TabLine guibg=#2C3043 guifg=#CCCCCC ]] -- non active Tab
+			vim.cmd [[ highlight TabLineFill guibG=#24283b ]] -- no labels Tab
+
 			-- Reset CursorLine and ColorColumn when leave Telescope popup prompt
 			local win_type = vim.fn.win_gettype(0)
 			local filetype = vim.bo.filetype
