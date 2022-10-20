@@ -44,7 +44,7 @@ M.setup = function (opts)
 
 			-- Deal with Dashboard plugin
 			if (filetype == 'dashboard') then
-				print'Enter dashboard'
+				-- print'Enter dashboard'
 
 				-- Set options
 				vim.opt.colorcolumn = '0'
@@ -53,16 +53,14 @@ M.setup = function (opts)
 
 				vim.api.nvim_set_hl(0, 'Normal', { bg = '#24283b' })
 			elseif (filetype ~= 'dashboard') then
-				print'Enter, filetype ~= "dashboard"'
-				print('window type: ', win_type)
-				print('filetype: ', filetype)
-				print('current_buf_name: ', current_buf_name)
+				-- print'Enter, filetype ~= "dashboard"'
+				-- print('window type: ', win_type)
+				-- print('filetype: ', filetype)
+				-- print('current_buf_name: ', current_buf_name)
 
 				-- Set Hightlight-groups 
 				vim.api.nvim_set_hl(0, 'NormalNC', { bg = '#2C3043'})
 				vim.api.nvim_set_hl(0, 'WinBarNC', { bg = '#2C3043'})
-				-- vim.cmd [[ highlight NormalNC guibg=#2C3043 ]]
-				-- vim.cmd [[ highlight WinBarNC guibg=#2C3043 ]]
 
 				vim.cmd [[ highlight TabLineSel guibg=#3d59a1 guifg=#FFFFFF ]] -- active Tab
 				vim.cmd [[ highlight TabLine guibg=#2C3043 guifg=#CCCCCC ]] -- non active Tab
@@ -79,7 +77,7 @@ M.setup = function (opts)
 	vim.api.nvim_create_autocmd({ 'WinLeave' }, {
 		group = fade,
 		callback = function ()
-			print'WinLeave'
+			-- print'WinLeave'
 
 			-- Reset CursorLine and ColorColumn when leave Telescope popup prompt
 			local win_type = vim.fn.win_gettype(0)
@@ -99,7 +97,7 @@ M.setup = function (opts)
 			local current_buf_name = vim.fn.expand('%:t')
 
 			if (options.nvimtree == true and current_buf_name == 'NvimTree_1') then
-				print'Leaving NvimTree_1'
+				-- print'Leaving NvimTree_1'
 				vim.api.nvim_set_hl(0, 'NvimTreeNormalNC', { bg = '#2C3043' })
 				vim.api.nvim_set_hl(0, 'NvimTreeNormal', { bg = '#1f2335' })
 			end
